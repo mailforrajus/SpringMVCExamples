@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+  <!-- Handler mapping -->
+  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+     <property name="mappings">
+        <props>
+           <prop key="home.htm">pvc</prop>
+           <prop key="access_denied.htm">pvc1</prop>
+           <prop key="timedout.htm">pvc2</prop>
+           <prop key="show_form.htm">pvc3</prop>
+           <prop key="auth_fail.htm">pvc4</prop>
+           <prop key="logout.htm">pvc5</prop>
+        </props>
+     </property>
+  </bean>
+  <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+  <!-- controllers -->
+  <bean id="pvc"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="home"/>
+  </bean>
+  
+  <!-- controllers -->
+  <bean id="pvc1"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="access_failure"/>
+  </bean>
+  
+   <!-- controllers -->
+  <bean id="pvc2"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="timedout"/>
+  </bean>
+  <bean id="pvc3"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="my_login_form"/>
+  </bean>
+  <bean id="pvc5"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="my_logout"/>
+  </bean>
+  
+  <bean id="pvc4"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="my_login_fail"/>
+  </bean>
+  
+  
+  <context:component-scan base-package="com.nt.controller"/>
+  
+  <!-- view Resolver Connfiguration -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="prefix" value="/WEB-INF/pages/"/>
+       <property name="suffix" value=".jsp"/>
+    </bean>
+  
+
+</beans>

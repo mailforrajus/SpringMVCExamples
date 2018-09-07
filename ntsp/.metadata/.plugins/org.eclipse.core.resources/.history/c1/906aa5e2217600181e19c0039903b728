@@ -1,0 +1,17 @@
+package com.nt.dao;
+
+public class BankDAOImpl implements BankDAO {
+
+	@Override
+	public int withdraw(int acno, int amt) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int deposite(int acno, int amt) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

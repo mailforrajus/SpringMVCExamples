@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+<security:http auto-config="true" use-expressions="true"  >
+    <!-- <security:csrf  disabled="true"/> -->
+   <security:intercept-url pattern="/home.htm" access="permitAll"/>
+   <security:intercept-url pattern="/getBal.htm" access="hasAnyRole('ROLE_MANAGER','ROLE_CUSTOMER')"/>
+   
+   <!-- <security:http-basic/> -->
+   <security:form-login login-page="/show_form.htm" authentication-failure-url="/auth_fail.htm"   login-processing-url="/mylogin" username-parameter="myuname" password-parameter="mypwd"/>
+    <security:remember-me/>
+    <security:access-denied-handler error-page="/access_denied.htm"/>
+    <security:logout logout-url="/performLogout" logout-success-url="/logout.htm"/>
+<!--     <security:session-management invalid-session-url="/timedout.htm">
+       <security:concurrency-control max-sessions="2" error-if-maximum-exceeded="true"/>
+    </security:session-management>
+ -->   
+</security:http>
+
+ <security:authentication-manager>
+   <!-- <security:authentication-provider>
+     <security:user-service>
+        <security:user name="raja" password="{noop}rani" authorities="ROLE_MANAGER"  locked="true" />
+        <security:user name="karan" password="{noop}arjun" authorities="ROLE_CUSTOMER"  disabled="true"/>
+        <security:user name="mahesh" password="{noop}babu" authorities="ROLE_ADMIN"/>
+     </security:user-service> 
+   </security:authentication-provider> -->
+   
+    <security:authentication-provider>
+     <security:user-service>
+        <security:user name="raja" password="rani" authorities="ROLE_MANAGER"   />
+        <security:user name="karan" password="arjun" authorities="ROLE_CUSTOMER" />
+        <security:user name="mahesh" password="babu" authorities="ROLE_ADMIN"/>
+     </security:user-service> 
+   </security:authentication-provider> 
+   
+   <!-- Properties file as Authentication Provider -->
+   <!--    <security:authentication-provider>
+         <security:user-service properties="classpath:com/nt/commons/security.properties"/>
+      </security:authentication-provider> -->
+      <!-- DB s/w  as Authentication Provider-->
+      <!-- <security:authentication-provider>
+         <security:jdbc-user-service data-source-ref="jofb"
+                                                            users-by-username-query="SELECT UNAME,PWD,STATUS FROM USERS WHERE UNAME=?"
+                                                             authorities-by-username-query="SELECT UNAME,ROLE FROM USER_ROLES WHERE UNAME=?"                                            />
+      </security:authentication-provider> -->
+ 
+ </security:authentication-manager>
+
+</beans>
