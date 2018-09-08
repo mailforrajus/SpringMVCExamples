@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE tiles-definitions PUBLIC  
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="baseDef" template="/WEB-INF/pages/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/pages/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/pages/footer.jsp" />
+		<put-attribute name="leftContent" value="/WEB-INF/pages/left_content.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="title" value="" />
+	</definition>
+	<definition name="homePageDef" extends="baseDef">
+		<put-attribute name="body" value="/WEB-INF/pages/home.jsp" />
+		<put-attribute name="title" value="home page" />
+	</definition>
+	<definition name="javaPageDef" extends="baseDef">
+		<put-attribute name="body" value="/WEB-INF/pages/java_page.jsp" />
+		<put-attribute name="title" value="java page" />
+	</definition>
+	<definition name="dotNetPageDef" extends="baseDef">
+		<put-attribute name="body" value="/WEB-INF/pages/dotnet_page.jsp" />
+		<put-attribute name="title" value="dotNet page" />
+	</definition>
+	<definition name="nitPageDef" extends="baseDef">
+		<put-attribute name="body" value="/WEB-INF/pages/nit_page.jsp" />
+		<put-attribute name="title" value="naresht IT page" />
+	</definition>
+</tiles-definitions>        

@@ -1,0 +1,23 @@
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+   // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
+  //from file system
+  compile files ('D:/app/oracle/product/11.2.0/server/jdbc/lib/ojdbc6.jar')
+  // https://mvnrepository.com/artifact/org.springframework/spring-context-support
+compile group: 'org.springframework', name: 'spring-context-support', version: '5.0.3.RELEASE'
+
+// https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2
+compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.3.0'
+   
+}
+
+mainClassName='com.nt.test.BatchProcessingTest'
+

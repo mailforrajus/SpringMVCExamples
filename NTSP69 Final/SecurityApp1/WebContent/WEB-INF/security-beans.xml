@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+<!-- Security Configurations -->
+<!-- <security:http auto-config="true" use-expressions="true" > -->
+<security:http>
+	<!-- Other Configurations -->
+	<security:csrf disabled="false"/>
+ 
+   <security:intercept-url pattern="/index.jsp" access="permitAll"/>
+   <security:intercept-url pattern="/pages/faculty.jsp" access="hasRole('ROLE_FACULTY')"/>
+   <security:intercept-url pattern="/pages/admin.jsp" access="hasRole('ROLE_ADMIN')"/>
+   
+   <security:access-denied-handler error-page="/access_failed.jsp"/>
+     <security:form-login  />
+     <security:remember-me/>
+     <!-- <security:logout logout-success-url="/logout.jsp" logout-url="/perform_logout"/> -->
+     <security:logout logout-success-url="/logout.jsp" logout-url="/performLogout"/> 
+     <security:session-management  invalid-session-url="/timeout.jsp" >
+       <security:concurrency-control max-sessions="3" error-if-maximum-exceeded="true"/>
+     </security:session-management>
+</security:http>
+
+<!-- <bean id="bcryptEncoder"
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+ -->
+<!-- Authentication manager and AuthenticationInfo Provider Details -->
+<!--  <security:authentication-manager>
+    <security:authentication-provider>
+       <security:password-encoder ref="bcryptEncoder"/>
+      <security:user-service>
+          <security:user name="raja"  password="$2a$10$Z5.44xBL/GeFS5rG3jJ04.54CtHcWZUunHmjCY2gi/ajwrioP6Ev2" authorities="ROLE_FACULTY"/>
+          <security:user name="rani"  password="$2a$10$Z5.44xBL/GeFS5rG3jJ04.54CtHcWZUunHmjCY2gi/ajwrioP6Ev2" authorities="ROLE_ADMIN"/>
+          <security:user name="mahesh"  password="$2a$10$EGnRLkNbw3Zc0q7xkiXZGeF3aw9aZR2jbFkFu2XFYa8wyxbe.JLum" authorities="ROLE_ADMIN,ROLE_FACULTY"/>
+      </security:user-service>
+    </security:authentication-provider>
+ </security:authentication-manager>
+ -->
+ 
+  <security:authentication-manager>
+    <security:authentication-provider>
+ 
+      <security:user-service>
+          <security:user name="raja"  password="{noop}rani" authorities="ROLE_FACULTY"/>
+          <security:user name="rani"  password="{noop}rani" authorities="ROLE_ADMIN"/>
+          <security:user name="mahesh"  password="{noop}babu" authorities="ROLE_ADMIN,ROLE_FACULTY"/>
+      </security:user-service>
+    </security:authentication-provider>
+ </security:authentication-manager>
+  
+            
+</beans>

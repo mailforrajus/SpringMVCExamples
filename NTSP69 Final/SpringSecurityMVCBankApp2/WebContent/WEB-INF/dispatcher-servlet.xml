@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+  <!-- Handler mapping -->
+  <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+     <property name="mappings">
+        <props>
+           <prop key="home.htm">pvc</prop>
+           <prop key="getBal.htm">gbc</prop>
+           <prop key="access_denied.htm">pvc1</prop>
+           <prop key="timedout.htm">pvc2</prop>
+        </props>
+     </property>
+  </bean>
+  <!-- controllers -->
+  <bean id="pvc"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="home"/>
+  </bean>
+  
+  <!-- controllers -->
+  <bean id="pvc1"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="access_failure"/>
+  </bean>
+  
+   <!-- controllers -->
+  <bean id="pvc2"  class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+       <property name="viewName" value="timedout"/>
+  </bean>
+  
+  <bean id="gbc"  class="com.nt.controller.GetBalanceController"/>
+  
+  <!-- view Resolver Connfiguration -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+       <property name="prefix" value="/WEB-INF/pages/"/>
+       <property name="suffix" value=".jsp"/>
+    </bean>
+  
+
+</beans>

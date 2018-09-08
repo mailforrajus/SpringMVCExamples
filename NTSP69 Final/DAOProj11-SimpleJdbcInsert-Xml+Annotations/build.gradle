@@ -1,0 +1,19 @@
+apply plugin: 'java'
+repositories {
+    jcenter()
+}
+
+dependencies {
+// https://mvnrepository.com/artifact/org.springframework/spring-context-support
+  compile group: 'org.springframework', name: 'spring-context-support', version: '5.0.3.RELEASE'
+  
+  // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
+  
+  // https://mvnrepository.com/artifact/com.mchange/c3p0
+compile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+  
+  //for odbc6.jar
+  compile files ('D:\\app\\oracle\\product\\11.2.0\\server\\jdbc\\lib\\ojdbc6.jar')
+}
+

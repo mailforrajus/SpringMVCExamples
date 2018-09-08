@@ -1,0 +1,16 @@
+SQL> select * from userlist;
+
+UNAME                PWD
+-------------------- --------------------
+raja                 rani
+kiran                karan
+king                 kingdom
+jani                 janu
+
+SQL> select * from account;
+
+      ACNO HOLDERNAME    BALANCE
+---------- ---------- ----------
+      1001 raja            90000
+      1002 rani            22000
+      1003 jani            24000

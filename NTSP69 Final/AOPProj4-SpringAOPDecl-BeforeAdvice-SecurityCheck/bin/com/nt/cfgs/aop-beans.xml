@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <!-- Cfg Advice class -->
+  <bean id="securityAdvice"  class="com.nt.advice.SecurityCheckAdvice">
+      <constructor-arg  ref="authManager"/>
+  </bean>
+  
+  <!-- Cfg ProxyFactoryBean to get Proxy obj -->
+   <bean id="pfb"  class="org.springframework.aop.framework.ProxyFactoryBean">
+       <property name="target" ref="bankService"/>
+       <property name="interceptorNames">
+         <array>
+           <value>securityAdvice</value>
+         </array>
+       </property>
+       <property name="proxyInterfaces">
+          <array>
+            <value>com.nt.service.BankService</value>
+          </array>
+       </property>
+   </bean>
+
+</beans>

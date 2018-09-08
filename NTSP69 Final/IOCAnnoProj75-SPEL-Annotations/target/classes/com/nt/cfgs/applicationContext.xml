@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+     <bean id="ord"  class="com.nt.beans.Order">
+          <property name="orderId" value="#{ T(java.lang.Math).random()*100}"/>
+          <property name="orderType" value="urgent"/>
+          <property name="orderItems">
+             <list>
+               <value>Biryani</value>
+               <value>Pizza</value>
+               <value>Burger</value>
+             </list>
+          </property>
+        <property name="itemPrices">
+                  <map>
+                    <entry key="Biryani"  value="150"/>
+                    <entry key="Pizza"  value="70"/>
+                    <entry key="Burger"  value="15"/>
+                  </map> 
+        </property>
+     </bean>
+     
+     <bean id="uberEats"  class="com.nt.beans.UberEats">
+       <property name="order"  value="#{ord}"/>
+       <property name="orderType" value="#{ord.orderType}"/>
+       <property name="firstOrderedItem" value="#{ord.orderItems[0]}"/>
+       <property name="lastlyOrderedItem" value="#{ord.orderItems[ord.orderItems.size()-1]}"/>
+       <property name="orderItemCount" value="#{ord.orderItems.size()}"/>
+       <property name="billAmt" value="#{ord.itemPrices['Biryani']+ord.itemPrices['Pizza']+ord.itemPrices['Burger']}"/>
+       <property name="javaVendor" value="#{systemProperties['java.vm.specification.vendor']}"/>
+     </bean>
+     
+
+</beans>

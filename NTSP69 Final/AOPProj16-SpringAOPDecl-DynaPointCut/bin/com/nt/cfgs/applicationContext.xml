@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+<!-- Cfg target  class-->
+     <bean id="aos"  class="com.nt.service.AirthmeticOperationsService"/>
+<!-- Cfg Advice class -->
+      <bean id="pmAdvice"  class="com.nt.advice.PerformanceMonitoringAdvice"/>
+    <!-- cfg pointcut -->
+    <bean id="mdp"  class="com.nt.pointcut.MyDynaPoincut"/>
+      
+   <bean id="advisor1"  class="org.springframework.aop.support.DefaultPointcutAdvisor">
+       <property name="advice"  ref="pmAdvice"/>
+      <property name="pointcut" ref="mdp"></property>
+   </bean>  
+      <!-- Cfg ProxyFactoryBean -->        
+     <bean  id="pfb"  class="org.springframework.aop.framework.ProxyFactoryBean">
+         <property name="target" ref="aos"/>
+         <property name="interceptorNames">
+              <array>
+                <value>advisor1</value>
+              </array>
+         </property>
+     </bean>  
+     	
+
+
+</beans>

@@ -1,0 +1,30 @@
+package com.nt.test;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.nt.beans.WebContainer;
+import com.nt.config.AppConfig;
+
+public class LMInjectionTest {
+
+	public static void main(String[] args) {
+		ApplicationContext ctx=null;
+		WebContainer container1=null,container2;
+		//create IOC contianer
+		ctx=new AnnotationConfigApplicationContext(AppConfig.class);
+		System.out.println("+++++++++++++++++++++++++++++");
+		//get Bean
+		container1=ctx.getBean("container",WebContainer.class);
+		System.out.println("container1 obj class name::"+container1.getClass());
+		System.out.println("super class name:"+container1.getClass().getSuperclass());
+		container1.processRequest("hello");
+		System.out.println("...................................................");
+		container2=ctx.getBean("container",WebContainer.class);
+		container2.processRequest("hai");
+		//close container
+		((AbstractApplicationContext) ctx).close();
+	}//main
+}//class

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch-3.0.xsd">
+  
+   <!-- ItemReader which reads from database and returns the row mapped by 
+		rowMapper in the form ExamResult obj-->
+	<bean id="dbItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader">
+		<property name="dataSource" ref="dbcpDs" />
+		<property name="sql"	value="SELECT ID,DOB, PERCENTAGE,SEMESTER FROM EXAM_RESULT" />
+		<property name="rowMapper"> 
+		   <bean class="com.nt.mapper.ExamResultMapper"/>
+		</property>
+	</bean>	
+   
+   <!-- Cfg Item PRocessor -->
+   <bean id="examResultProcessor"  class="com.nt.processor.ExamResultItemProcessor"/>
+ 
+ 
+ <!-- ItemWriter writes a line into output CSV file -->
+	<bean id="flatFileItemWriter" class="org.springframework.batch.item.file.FlatFileItemWriter">
+		<property name="resource" value="file:csv//intelligents.csv" />
+		<property name="lineAggregator">
+			<!-- An Aggregator which converts an object into delimited list of strings -->
+			<bean	class="org.springframework.batch.item.file.transform.DelimitedLineAggregator">
+				<property name="delimiter" value="," />
+				<property name="fieldExtractor">
+					<!-- Extractor which returns the value of beans properties through reflection -->
+					<bean	class="org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor">
+						<property name="names" value="id, dob, percentage, sem" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- Item Processor -->
+	<bean id="itemProcessor"  class="com.nt.processor.ExamResultItemProcessor"/>  
+   
+    <!-- Job Listener -->
+    <bean id="jobListener" class="com.nt.listener.ExamResultJobListener"/>
+   
+   <!-- cfg job -->
+   <batch:job id="examResultsJob" job-repository="jobRep" >
+	<batch:step id="step1">
+		<batch:tasklet transaction-manager="txMgmr">
+			<batch:chunk reader="dbItemReader" processor="examResultProcessor"
+						 writer="flatFileItemWriter" commit-interval="1"  />
+		</batch:tasklet>
+	</batch:step>
+	  <batch:listeners  >
+         <batch:listener  ref="jobListener"/>
+     </batch:listeners>		
+</batch:job>
+
+</beans>

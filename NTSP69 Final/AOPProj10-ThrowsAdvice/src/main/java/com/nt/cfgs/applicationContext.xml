@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    <!-- Cfg Target class -->
+    <bean id="bac"  class="com.nt.service.BillAmountCalculator"/>
+    
+    <!-- Cfg Advice -->
+    <bean id="cet"  class="com.nt.advice.CommonExceptionTranslator"/>
+    <bean id="cel"  class="com.nt.advice.CommonExceptionLogger"/>
+    
+    <!-- cfg ProxyFactoryBean -->
+    <bean id="pfb"  class="org.springframework.aop.framework.ProxyFactoryBean">
+       <property name="target" ref="bac"/>
+       <property name="interceptorNames">
+         <array>
+         <!--    <value>cet</value> -->
+           <value>cel</value>
+         </array>
+       </property>
+    
+    </bean>
+
+</beans>

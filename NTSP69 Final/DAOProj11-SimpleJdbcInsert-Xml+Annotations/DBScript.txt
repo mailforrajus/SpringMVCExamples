@@ -1,0 +1,9 @@
+SQL> desc Online_Counselling;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ HNO                                       NOT NULL NUMBER(5)
+ STUDNAME                                           VARCHAR2(10)
+ ADDRESS                                            VARCHAR2(10)
+ RANK                                               NUMBER(5)
+ BRANCH                                             VARCHAR2(20)
+ COLLEGE                                            VARCHAR2(20)

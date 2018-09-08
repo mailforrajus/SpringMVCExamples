@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+    <!-- cfg target class -->
+    <bean id="bankService"  class="com.nt.service.BankService"/>
+    <!-- cfg advice class -->
+    <bean id="pmAdvice"  class="com.nt.advice.PerformanceMonitoringAdvice"/>
+    <bean id="logAdvice"  class="com.nt.advice.LogAroundAdvice"/>
+    <!-- Perform AspectjAOP cfgs -->
+  <aop:config>
+  <!--      Pointcut expression
+   -->     <aop:pointcut expression="execution(float com.nt.service.BankService.*(..))"  id="ptc1"/>
+      <!-- Make Spring Bean as  AspectJ AOP Advice class -->
+        
+       <aop:aspect ref="pmAdvice" order="2">
+           <aop:around method="monitor" pointcut-ref="ptc1" />
+       </aop:aspect>
+        <aop:aspect ref="logAdvice" order="1">
+          <aop:around method="log" pointcut-ref="ptc1"/>
+       </aop:aspect>
+     
+    </aop:config>
+     
+
+</beans>

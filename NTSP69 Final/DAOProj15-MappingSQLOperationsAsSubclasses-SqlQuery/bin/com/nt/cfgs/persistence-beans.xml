@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- DataSource Configuration -->
+   <bean id="c3P0Ds"  class="com.mchange.v2.c3p0.ComboPooledDataSource">
+       <property name="driverClass" value="oracle.jdbc.driver.OracleDriver"/>
+       <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+       <property name="user"  value="system"/>
+       <property name="password"  value="manager"/>
+   </bean>
+      
+   <!-- cfg DAO -->
+   <bean id="empDAO"  class="com.nt.dao.EmployeeDAOImpl">
+        <constructor-arg  ref="c3P0Ds"/>
+   </bean>
+   
+
+</beans>

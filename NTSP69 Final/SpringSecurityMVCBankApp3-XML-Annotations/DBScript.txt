@@ -1,0 +1,43 @@
+SQL> create table users(uname varchar2(15) primary key,pwd varchar2(15),status number(3));
+
+Table created.
+
+SQL> create table user_roles(roleId number(5) primary key,uname varchar2(15) references users(uname),role varchar2(15));
+
+Table created.
+
+SQL> insert into users values('raja','{noop}rani',1);
+
+1 row created.
+
+SQL> insert into users values('karan','{noop}arjun',1);
+
+1 row created.
+
+SQL> insert into users values('mahesh','{noop}babu',0);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> insert into user_roles values(101,'raja','ROLE_CUSTOMER');
+
+1 row created.
+
+SQL> insert into user_roles values(102,'raja','ROLE_MANAGER');
+
+1 row created.
+
+SQL> insert into user_roles values(103,'karan','ROLE_MANAGER');
+
+1 row created.
+
+SQL> insert into user_roles values(104,'mahesh','ROLE_ADMIN');
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
